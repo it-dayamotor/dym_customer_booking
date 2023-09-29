@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <!-- <record id="menu_booking_service" model="website.menu">
+        <field name="name">Booking Service</field>
+        <field name="url">/booking/new</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">1</field>
+    </record> -->
+
+   <template id="booking_service" name="Booking Service">
+      <t t-call="website.layout">
+         <div id="wrap">
+            <div class="oe_structure">
+               <section id="image-header">
+                  <img src="/dym_customer_booking/static/header_service.png" class="container-max-width" alt="Odoo • Image and Text" data-original-title="" title="Banner Service" aria-describedby="tooltip730266" />
+               </section>
+               <section id="booking-service-content" class="pb24 pt0 bg-100" data-name="Booking Service">
+                  <div class="container">
+                     <div class="s_nb_column_fixed">
+                        <div class="s_title pt16 text-center">
+                           <h2 class="s_title_default color-black font-weight-bold">
+                              Selamat Datang Di Bengkel Resmi Honda
+                           </h2>
+                           <p class="s_title_default color-black">
+                              Untuk menjamin keamanan dan kenyamanan dalam berkendara, pastikan Anda mendapatkan servis terbaik hanya dari AHASS, yang dilengkapi dengan prosedur dan alat kerja standard Honda Jepang.
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+               <section id="booking-form" class="bg-100">
+                  <div class="container pb24">
+                     <div class="card bg-color-secondary border-0 br20">
+                        <div class="mt-4">
+                           <h2 class="text-center font-weight-bold text-color-primary">
+                              Booking Service
+                           </h2>
+                        </div>
+                        <div class="m-auto">
+                           <p class="text-center text-color-primary">
+                              Halo BroSis, isi form berikut untuk melakukan booking service ya!
+                           </p>
+                        </div>
+                        <div class="mx-3">
+                           <form role="form" action="/booking_success" method="POST" class="s_website_form container-fluid" enctype="multipart/form-data" onsubmit="return submitUserForm();">
+                              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                              <div class="form-group row form-field o_website_form_required_custom">
+                                 <label class="col-lg-3 col-md-4 col-form-label" for="nama">Nama Anda</label>
+                                 <div class="col-lg-7 col-md-8">
+                                    <input type="text" class="form-control o_website_form_input" name="nama" t-att-value="nama" required=""/>
+                                 </div>
+                              </div>
+                              <div class="form-group row form-field o_website_form_required_custom">
+                                 <label class="col-lg-3 col-md-4 col-form-label" for="mobile">No Handphone</label>
+                                 <div class="col-lg-7 col-md-8">
+                                    <input type="text" class="form-control o_website_form_input" name="mobile" t-att-value="mobile" required=""/>
+                                 </div>
+                              </div>
+                              <div class="form-group row form-field o_website_form_required_custom">
+                                 <label class="col-lg-3 col-md-4 col-form-label" for="no_polisi">Nomor Polisi Kendaraan Anda</label>
+                                 <div class="col-lg-7 col-md-8">
+                                    <input type="text" class="form-control o_website_form_input" name="no_polisi" required="" t-att-value="no_polisi" />
+                                 </div>
+                              </div>
+                              <div class="form-group row form-field o_website_form_required_custom">
+                                 <label class="col-lg-3 col-md-4 col-form-label" for="type_motor">Type Motor Anda</label>
+                                 <div class="col-lg-7 col-md-8">
+                                    <select name="type_motor" class="form-control o_website_form_input" required="True">
+                                       <option style="display:none" t-att-value="False"></option>
+                                       <option value="matic">Matic</option>
+                                       <option value="cub">CUB/Bebek</option>
+                                       <option value="sport">Sport</option>
+                                    </select>
+                                 </div>
+                              </div>
+                              <div class="form-group row form-field o_website_form_required_custom">
+                                 <label class="col-lg-3 col-md-4 col-form-label" for="tgl_servis">Tgl Rencana Servis</label>
+                                 <div class="col-lg-7 col-md-8">
+                                    <t t-if ="not tgl_servis">
+                                       <!-- <input id="tgl_servis" type="date" name="tgl_servis" class="form-control o_website_form_input" data-date-format="YYYY-MM-DD" t-att-value="tgl_servis" required="True"/> -->
+                                       <input id="tgl_servis" type="text" name="tgl_servis" class="form-control" t-att-value="tgl_servis" required="True"/>
+                                    </t>
+                                 </div>
+                              </div>
+
+                              <div class="form-group row form-field o_website_form_required_custom">
+                                 <label class="col-lg-3 col-md-4 col-form-label" for="jam_servis">Rencana Jam Servis</label>
+                                 <div class="col-lg-5 col-md-6">
+                                    <t t-if ="not jam_servis">
+                                       <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                          <tr>
+                                             <td>
+                                                <select name="jam_servis" class="form-control o_website_form_input" required="True">
+                                                   <option value="">Jam</option>
+                                                   <!-- <option t-att-value ="False" /> -->
+                                                   <t t-foreach="jam" t-as="j">
+                                                      <option t-esc="j" t-att-value ="j" />
+                                                   </t>
+                                                </select>
+                                             </td>
+                                             <td>
+                                                <select name="menit_service" class="form-control o_website_form_input" required="True">
+                                                   <option value="">Menit</option>
+                                                   <!-- <option t-att-value ="False" /> -->
+                                                   <t t-foreach="menit" t-as="m">
+                                                      <option t-esc="m" t-att-value ="m" />
+                                                   </t>
+                                                </select>
+                                             </td>
+                                          </tr>
+                                       </table>
+                                    </t>
+                                 </div>
+                              </div>
+
+                              <div class="form-group row form-field o_website_form_required_custom">
+                                 <label class="col-lg-3 col-md-4 col-form-label" for="city_id">Pilih Kota/Kab Terdekat</label>
+                                 <div class="col-lg-7 col-md-8">
+                                    <select id="city_id" name="city_id" class="form-control o_website_form_input" required="True">
+                                       <option t-att-value ="False" />
+                                       <t t-foreach="city_rec" t-as="c">
+                                          <option id="opt_city" t-esc="c['city_name']" t-att-value ="c['city_id']" />
+                                       </t>
+                                    </select>
+                                 </div>
+                              </div>
+
+
+                              <div class="form-group row form-field o_website_form_required_custom">
+                                 <label class="col-lg-3 col-md-4 col-form-label" for="branch_id">Pilih AHASS Daya Motor Terdekat</label>
+                                 <div class="col-lg-7 col-md-8">
+                                    <select id="branch_id" name="branch_id" class="form-control o_website_form_input" required="True">
+                                       <option t-att-value ="False" />
+                                       <t t-foreach="branch_rec" t-as="b">
+                                          <option id="opt_branch" t-esc="b['display_name']" t-att-value ="b['id']" />
+                                       </t>
+                                    </select>
+                                 </div>
+                              </div>
+
+                              <div class="form-group row form-field o_website_form_required_custom">
+                                 <label class="col-lg-3 col-md-4 col-form-label" for="kategori_pit">Kategori PIT</label>
+                                 <div class="col-lg-7 col-md-8">
+                                    <select name="kategori_pit" class="form-control o_website_form_input" required="True">
+                                       <option style="display:none" t-att-value="False"></option>
+                                       <option value="R">Reguler</option>
+                                       <option value="D">DQS</option>
+                                    </select>
+                                 </div>
+                              </div>
+
+                              <div class="form-group row form-field">
+                                 <label class="col-lg-3 col-md-4 col-form-label" for="keluhan">Keluhan Anda? (Jika ada)</label>
+                                 <div class="col-lg-7 col-md-8">
+                                    <textarea class="form-control" name="keluhan" rows="3"></textarea>
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="offset-lg-3 offset-md-4 col-md-8 col-lg-7">
+                                    <!-- <a href="#" role="button" class="btn btn-primary btn-lg o_website_form_send">Send</a> -->
+                                    <!-- <span id="o_website_form_result"></span> -->
+                                    <!-- <button type="sumbit" class="btn btn-primary btn-lg o_website_form_send"/> -->
+                                    <div class="clearfix oe_login_buttons">
+                                       <div class="g-recaptcha" data-sitekey="6LcLrzsjAAAAAO4-6C3fYmCFrBTnb0VdLVv4qtLP" data-callback="verifyCaptcha"></div>
+                                       <div id="g-recaptcha-error"></div>
+                                       <button type="submit" class="btn btn-primary btn-lg">Kirim <span class="fa fa-send pl-1"></span>
+                                       </button>
+                                       <span id="o_website_form_result"></span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </form>
+                           <script src='https://www.google.com/recaptcha/api.js'></script>
+                           <script src='/dym_customer_booking/static/js/recaptcha.js'></script>
+                           <!-- <form class="form" id="form_submit_form" action="/service-order" onsubmit="return false, popupFunction()">
+                                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                             <div class="s_website_form_rows row s_col_no_bgcolor">
+                                             <div class="form-group col-12">
+                                                <input type="text" class="form-control" name="name" placeholder="Nama" required="required"/>
+                                             </div>
+                                             <div class="form-group col-12">
+                                                <input type="number" class="form-control" name="phone" placeholder="Nomor Telepon" required="required"/>
+                                             </div>
+                                             <div class="form-group col-12">
+                                                <input type="email" class="form-control" name="email" placeholder="Email" required="required"/>
+                                             </div>
+                                             <div class="form-group col-12">
+                                                <select class="form-control" id="exampleFormControlSelect1" name="unit_tipe" required="required">
+                                                <option value="">Jenis Motor...</option>
+                                                <option>Matic</option>
+                                                <option>Sport</option>
+                                                <option>Cub</option>
+                                                <option>Big Bike</option>
+                                                </select>
+                                             </div>
+                                             <div class="form-group col-12">
+                                                <input type="text" class="form-control" name="plat_no" placeholder="Plat Nomor" required="required"/>
+                                             </div>
+                                             <div class="form-group col-12">
+                                                <input type="text" class="form-control" name="no_mesin" placeholder="Nomor Mesin" required="required"/>
+                                             </div>
+                                             <div class="form-group col-12">
+                                                <input type="submit" class="btn btn-primary font-weight-bold w-100" value="Kirim"/>
+                                                The Modal
+                                                <div id="myModal" class="modal-popup">
+                                                <span class="close-popup">&#215;</span>
+                                                <img class="modal-content-popup" src="/dym_website/static/src/img/riri_thanks-service.png" />
+                                                </div>
+                                                <script src="/dym_website/static/src/js/popup.js"></script>
+                                             </div>
+                                             </div>
+                                          </form> -->
+                        </div>
+                     </div>
+                  </div>
+               </section>
+            </div>
+         </div>
+      </t>
+   </template>
+
+   <record id="booking_success" model="website.page">
+      <field name="name">Thanks (Booking Service)</field>
+      <field name="type">qweb</field>
+      <field name="url">/booking-thank-you</field>
+      <field name="website_indexed" eval="False"/>
+      <field name="is_published">True</field>
+      <field name="key">dym_customer_booking.booking_success</field>
+      <field name="arch" type="xml">
+         <t name="Thanks (Booking Service)" t-name="dym_customer_booking.booking_success">
+            <t t-call="website.layout">
+               <div id="wrap">
+                  <div class="oe_structure"/>
+                  <div class="container pt-3">
+                     <t t-if ="no_booking and no_booking != 'ERROR'">
+                        <h1>Terima kasih!</h1>
+                        <div class="row">
+                           <div class="col-lg-8">
+                              <div class="alert alert-success" role="status">
+                                        Booking Service telah berhasil dibuat!
+                                                                                                                                                                                                       <!-- <strong><input type="text" readonly="True" class="form-control o_website_form_input" name="no_booking" t-att-value="no_booking" /></strong> -->
+                                 <strong>
+                                    <h3>
+                                       <t t-esc="no_booking"/>
+                                    </h3>
+                                 </strong>
+                              </div>
+                              <p>
+                                 <strong>
+                                        Simpan nomor Booking Service diatas untuk ditunjukan ke AHASS yang dituju.
+                                 </strong>
+                              </p>
+                              <div class="pb24">
+                                 <a href="/" role="button" class="btn btn-primary btn-lg">Kembali</a>
+                              </div>
+                           </div>
+                        </div>
+                     </t>
+                     <t t-if ="not no_booking or no_booking == 'ERROR'">
+                        <h1>Error</h1>
+                        <div class="row">
+                           <div class="col-lg-8">
+                              <div class="alert alert-success" role="status">
+                                        Terjadi kesalahan saat menyimpan data booking service anda, silahkan coba beberapa saat lagi!<br/>
+                              <a href="javascript:history.back()" role="button" class="btn btn-primary btn-lg">Kembali</a>
+                              <!-- <strong><input type="text" readonly="True" class="form-control o_website_form_input" name="no_booking" t-att-value="no_booking" /></strong> -->
+                              <!-- <strong><h3><t t-esc="no_booking"/></h3></strong> -->
+                           </div>
+                        </div>
+                        <!-- <div class="col-lg-4">
+                           <t t-call="website.company_description"/>
+                           </div> -->
+                     </div>
+                  </t>
+               </div>
+               <!-- <div class="oe_structure"/> -->
+            </div>
+         </t>
+      </t>
+   </field>
+</record>
+
+
+</odoo>

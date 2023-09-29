@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_data_retrieval_branch" model="ir.cron">
+        <field name="name">Generate Collection of Data Branch Everyday</field>
+        <field name="model_id" ref="dym_customer_booking.model_dym_branch"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_retrieve_data()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="priority">5</field>
+        <field name="active" eval="False" />
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 16:58:00')" /> 
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

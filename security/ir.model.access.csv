@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_branch_street,dym_branch_street all,model_dym_branch_street,,1,1,1,
+access_dym_booking_service,dym_booking_service all,model_dym_booking_service,,1,1,1,

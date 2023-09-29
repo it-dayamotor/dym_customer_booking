@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="dym_customer_booking_tree_view" model="ir.ui.view">
+            <field name="name">dym.customer.booking.tree.view</field>
+            <field name="model">dym.booking.service</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false" string="Booking Service" default_order="create_date desc">
+                    <field name="name"/>
+                    <field name="branch_id"/>
+                    <field name="date"/>
+                    <field name="date_booking"/>
+                    <field name="nama_cust"/>
+                    <field name="mobile"/>
+                    <field name="type_motor"/>
+                    <field name="jam"/>
+                    <field name="menit"/>
+                    <field name="ref_odm"/>
+                    <field name="kategori_pit"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="dym_customer_booking_form_view" model="ir.ui.view">
+            <field name="name">dym.customer.booking.form.view</field>
+            <field name="model">dym.booking.service</field>
+            <field name="arch" type="xml">
+                <form string="Booking Service" create="false" edit="false">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="success,fail" />  
+                    </header>
+                    <sheet>
+                        <!-- <widget name="web_ribbon" bg_color="bg-success" title="Created"/> -->
+                        <group>
+                            <div class="oe_title">
+                                <h1>
+                                    <field name="name" class="oe_inline" />
+                                </h1>
+                            </div>
+                            <div class="oe_right">
+                                <div class="oe_title">
+                                    <h1>
+                                        <field name="ref_odm"/>
+                                    </h1>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="branch_id" options="{'no_create': True,'no_open': True}"  />
+                                <field name="date" />
+                                <field name="date_booking" />
+                                <field name="nama_cust" />
+                                <field name="mobile" />
+                                <field name="no_polisi" />
+                                <field name="type_motor" />
+                            </group>
+                            <group>
+                                <field name="jam" />
+                                <field name="menit" />
+                                <field name="branch_pilihan" />
+                                <field name="keluhan"/>
+                                <field name="keterangan_error"/>
+                                <field name="kategori_pit"/>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="audit_trail" string="Audit Trail" >
+                                <group>
+                                    <group>
+                                        <field name="create_uid"/>
+                                        <field name="create_date"/>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid"/>
+                                        <field name="write_date"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_dym_booking_service_search" model="ir.ui.view">
+            <field name="name">view.dym.booking.service.search</field>
+            <field name="model">dym.booking.service</field>
+            <field name="arch" type="xml">
+                <search string="Search Booking">
+                    <field name="name"/>
+                    <field name='branch_id' />
+                    <field name='ref_odm' />
+                    <field name='nama_cust'/>
+                    <field name='mobile' />
+                    <field name='no_polisi' />
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="dym_booking_service_action">
+            <field name="name">Booking Service</field>
+            <field name="res_model">dym.booking.service</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="dym_booking_service_menu" name="Booking Service" sequence="10" web_icon="dym_customer_booking,static/ticket.png" groups="base.group_erp_manager"/>
+        <menuitem id="dym_booking_service_menu_1" name="Booking Service" sequence="1" parent="dym_booking_service_menu" action="dym_booking_service_action" />
+
+    </data>
+</odoo>
